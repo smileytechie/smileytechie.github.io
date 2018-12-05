@@ -8,31 +8,35 @@ $(document).ready(function(){
         var html = $('<output>').append($.parseHTML($('#input').val()));
         var output1 = '';
         var output2 = '';
+        var output3 = '';
         var count = {};
+        var name = {};
 
         var obj = $(html).find('.itemicon').each(function(index){
-            //var key = $(this).attr('data-itemid') + '\t' + $(this).attr('data-name');
-            var key = $(this).attr('data-name');
+            var key = $(this).attr('data-itemid');
             if(!(key in count)) {
                 count[key] = 0;
+                name[key] = $(this).attr('data-name');
             }
             count[key] = count[key] + parseInt($(this).attr('data-quantity'));
             });
         
         for (var key in count){
-            output1 += key + '\t' + count[key] + '\n';
-            output2 += '[item=' + key + ']x' + count[key];
+            output1 += key + '\t' + name[key] + '\t' + count[key] + '\n';
+            output2 += '[item=' + name[key] + ']x' + count[key];
+            output3 += '[skin=' + key + ']x' + count[key];
         }
 
         $('#output1').val(output1);
         $('#output2').val(output2);
+        $('#output3').val(output3);
     });
 });
 </script>
 
 </head>
 <body>
-<h1>Flight Rising Inventory Counter</h1>
+<h1>Flight Rising Hoard Counter</h1>
 <p>Made by <a href='http://flightrising.com/main.php?p=lair&tab=userpage&id=53186'>smileytechie</a></p>
 <p>To use:</p>
 <ul>
@@ -55,6 +59,10 @@ $(document).ready(function(){
 <label for"output2">Item code (for the forums):</label>
 <br>
 <textarea id="output2" rows="10" cols="70"></textarea>
+<br>
+<label for"output3">Skin code (for the forums):</label>
+<br>
+<textarea id="output3" rows="10" cols="70"></textarea>
 
 
 </body>
