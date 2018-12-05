@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src='https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js'></script>
+<script>
+$(document).ready(function(){
+    $('button').click(function(){
+        var html = $('<output>').append($.parseHTML($('#input').val()));
+        var output1 = '';
+        var output2 = '';
+        var count = {};
+
+        var obj = $(html).find('.itemicon').each(function(index){
+            //var key = $(this).attr('data-itemid') + '\t' + $(this).attr('data-name');
+            var key = $(this).attr('data-name');
+            if(!(key in count)) {
+                count[key] = 0;
+            }
+            count[key] = count[key] + parseInt($(this).attr('data-quantity'));
+            });
+        
+        for (var key in count){
+            output1 += key + '\t' + count[key] + '\n';
+            output2 += '[item=' + key + ']x' + count[key];
+        }
+
+        $('#output1').val(output1);
+        $('#output2').val(output2);
+    });
+});
+</script>
+
+</head>
+<body>
+<h1>Flight Rising Inventory Counter</h1>
+<p>Made by <a href='http://flightrising.com/main.php?p=lair&tab=userpage&id=53186'>smileytechie</a></p>
+<p>To use:</p>
+<ul>
+  <li>Go to the auction house and choose sell.</li>
+  <li>On the page with the items you want to count, view the source. (E.g., in my browser (Chrome on desktop), right click on the page, then choose "View page source")</li>
+  <li>Copy all the text. (E.g. Ctrl+a, then Crtl+c)</li>
+  <li>Paste the text in the input box, then press the "Process" button.</li>
+</ul>
+
+<label for"input">Input:</label>
+<br>
+<textarea id="input" rows="10" cols="70"></textarea>
+<br>
+<button>Process</button>
+<br>
+<label for="output1">Tab separated values (for e.g. spreadsheets):</label>
+<br>
+<textarea id="output1" rows="10" cols="70"></textarea>
+<br>
+<label for"output2">Item code (for the forums):</label>
+<br>
+<textarea id="output2" rows="10" cols="70"></textarea>
+
+
+</body>
+</html>
